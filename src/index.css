@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "PT Serif";
+  src: url("/fonts/pt-serif.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "Bodoni Moda", "Times New Roman", serif;
+  --font-heading: "Playfair Display", "Times New Roman", serif;
+  --font-script: "Great Vibes", cursive;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --color-ink: #3a342c;
+  --color-muted: #6f675f;
+  --color-paper: #ffffff;
+  --color-wash: #f4f0ea;
+  --color-line: #e6dfd6;
+  --color-rose: #c98990;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
