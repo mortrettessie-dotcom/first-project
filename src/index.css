@@ -8,11 +8,59 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Kudry";
+  src: url("/fonts/kudry.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Non Bureau";
+  src: url("/fonts/non-bureau-light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Non Bureau";
+  src: url("/fonts/non-bureau-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Non Bureau";
+  src: url("/fonts/non-bureau-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bergamasco";
+  src: url("/fonts/bergamasco.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Edwardian Script ITC";
+  src: url("/fonts/edwardian.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-display: "Bodoni Moda", "Times New Roman", serif;
-  --font-heading: "Playfair Display", "Times New Roman", serif;
-  --font-script: "Great Vibes", cursive;
-  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Bergamasco", "Times New Roman", serif;
+  --font-heading: "Kudry", "Times New Roman", serif;
+  --font-script: "Edwardian Script ITC", cursive;
+  --font-body: "Non Bureau", "Segoe UI", sans-serif;
   --color-ink: #3a342c;
   --color-muted: #6f675f;
   --color-paper: #ffffff;
@@ -30,6 +78,8 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: 0.045em;
 }
 
 @media (prefers-reduced-motion: reduce) {

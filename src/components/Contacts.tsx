@@ -1,7 +1,10 @@
 import { useState, type FormEvent } from "react"
 
+const sans = "var(--font-body)"
+const display = "var(--font-heading)"
+
 const field =
-  "absolute border-0 bg-transparent px-1 text-[clamp(14px,1.05vw,18px)] text-ink outline-none placeholder:text-transparent focus:bg-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#cfc8bf] [&:not(:placeholder-shown)]:bg-white"
+  "w-full border-0 border-b border-[#e4e0da] bg-transparent py-3 text-[16px] text-[#3a342c] outline-none placeholder:text-[#8a847c]"
 
 export function Contacts() {
   const [sent, setSent] = useState(false)
@@ -12,81 +15,101 @@ export function Contacts() {
   }
 
   return (
-    <section id="contacts" className="scroll-mt-4 bg-white px-[50px] pb-0">
-      <div className="relative">
-        <img
-          src="/flowers/contacts-frame.jpg?v=1"
-          alt="Контакты: г. Минск, ул. Флористов 220, flowlove@gmail.com, +375 (29) -777-78-79"
-          className="block w-full"
-        />
-        <a
-          href="mailto:flowlove@gmail.com"
-          className="absolute"
-          style={{ left: "4.5%", top: "40%", width: "16%", height: "2.4%" }}
-          aria-label="Написать на flowlove@gmail.com"
-        />
-        <a
-          href="tel:+375297777879"
-          className="absolute"
-          style={{ left: "4.5%", top: "43.5%", width: "16%", height: "2.4%" }}
-          aria-label="Позвонить +375 (29) -777-78-79"
-        />
-
-        {sent ? (
-          <p
-            className="absolute flex items-center bg-white px-2 text-[clamp(16px,1.2vw,22px)] text-ink"
-            style={{ left: "51%", top: "58%", width: "45%", height: "38%" }}
+    <section id="contacts" className="scroll-mt-4 bg-white px-[50px] pt-8 pb-20 text-[#3a342c]">
+      <div className="grid grid-cols-2 gap-16">
+        <div>
+          <h2
+            style={{
+              fontFamily: display,
+              fontWeight: 400,
+              fontSize: "clamp(72px, 7vw, 128px)",
+              lineHeight: 0.9,
+              letterSpacing: 0,
+            }}
           >
-            Спасибо. Мы ответим вам в ближайшее время.
-          </p>
-        ) : (
-          <form onSubmit={onSubmit}>
-            <label className="sr-only" htmlFor="contact-name">
-              Имя
-            </label>
-            <input
-              id="contact-name"
-              name="name"
-              required
-              autoComplete="given-name"
-              placeholder="Имя*"
-              className={field}
-              style={{ left: "51.4%", top: "58.8%", width: "44.1%", height: "4.6%" }}
-            />
-            <label className="sr-only" htmlFor="contact-surname">
-              Фамилия
-            </label>
-            <input
-              id="contact-surname"
-              name="surname"
-              required
-              autoComplete="family-name"
-              placeholder="Фамилия*"
-              className={field}
-              style={{ left: "51.4%", top: "67%", width: "44.1%", height: "4.6%" }}
-            />
-            <label className="sr-only" htmlFor="contact-email">
-              Электронная почта
-            </label>
-            <input
-              id="contact-email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="Электронная почта*"
-              className={field}
-              style={{ left: "51.4%", top: "75.1%", width: "44.1%", height: "4.6%" }}
-            />
-            <button
-              type="submit"
-              className="absolute cursor-pointer bg-transparent text-transparent focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#cfc8bf]"
-              style={{ left: "51.6%", top: "89.2%", width: "44.8%", height: "5.7%" }}
-            >
-              Отправить
-            </button>
-          </form>
-        )}
+            Контакты
+          </h2>
+          <div className="mt-16 space-y-1 text-[16px] leading-7" style={{ fontFamily: sans }}>
+            <p>г. Минск, ул. Флористов 220</p>
+            <p>
+              <a href="mailto:flowlove@gmail.com" className="underline-offset-2 hover:underline">
+                flowlove@gmail.com
+              </a>
+            </p>
+            <p>
+              <a href="tel:+375297777879" className="underline-offset-2 hover:underline">
+                +375 (29)-777-78-79
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div className="border-l border-[#eceae6] pl-12">
+          <div className="pt-52">
+            {sent ? (
+            <p className="text-[22px] leading-8" style={{ fontFamily: sans }}>
+              Спасибо. Мы ответим вам в ближайшее время.
+            </p>
+          ) : (
+            <>
+              <h3 className="text-[22px] font-medium" style={{ fontFamily: sans, letterSpacing: 0 }}>
+                Остались вопросы или нужна помощь?
+              </h3>
+              <p className="mt-4 max-w-[520px] text-[15px] leading-7 text-[#5c564e]" style={{ fontFamily: sans }}>
+                Напишите нам — поможем с выбором букета, уточним детали доставки
+                <br />
+                или ответим на любые вопросы. Рады вам в любое время!
+              </p>
+              <form onSubmit={onSubmit} className="mt-10">
+                <label className="sr-only" htmlFor="contact-name">
+                  Имя
+                </label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  required
+                  autoComplete="given-name"
+                  placeholder="Имя*"
+                  className={field}
+                  style={{ fontFamily: sans }}
+                />
+                <label className="sr-only" htmlFor="contact-surname">
+                  Фамилия
+                </label>
+                <input
+                  id="contact-surname"
+                  name="surname"
+                  required
+                  autoComplete="family-name"
+                  placeholder="Фамилия*"
+                  className={`${field} mt-6`}
+                  style={{ fontFamily: sans }}
+                />
+                <label className="sr-only" htmlFor="contact-email">
+                  Электронная почта
+                </label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="Электронная почта*"
+                  className={`${field} mt-6`}
+                  style={{ fontFamily: sans }}
+                />
+                <button
+                  type="submit"
+                  className="mt-10 w-full cursor-pointer bg-[#e6e2d8] py-4 text-[16px] text-[#3a342c]"
+                  style={{ fontFamily: sans }}
+                >
+                  Отправить
+                </button>
+              </form>
+            </>
+          )}
+          </div>
+        </div>
       </div>
     </section>
   )
