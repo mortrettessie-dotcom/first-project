@@ -102,6 +102,20 @@ body {
   #catalog figcaption {
     margin-left: 0 !important;
   }
+
+  header button[aria-label="Поиск"],
+  header button[aria-label="Аккаунт"] {
+    display: none !important;
+  }
+
+  #catalog .gallery-copy {
+    width: 100%;
+    font-size: calc(3.63vw - 1.16px);
+    line-height: 1.5;
+    text-align: justify;
+    text-align-last: justify;
+    letter-spacing: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

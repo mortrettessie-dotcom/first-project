@@ -89,15 +89,9 @@ export function Catalog() {
             className="mt-5 text-center text-[14px] leading-6 text-[#5c564e] min-[769px]:mt-8 min-[769px]:text-[15px] min-[769px]:text-left min-[769px]:leading-[1.85]"
             style={{ fontFamily: sans }}
           >
-            <span
-              className="block min-[769px]:hidden"
-              style={{ textAlign: "justify", textAlignLast: "justify", letterSpacing: 0 }}
-            >
-              Эксклюзивные букеты для особых
-              <br />
-              моментов. Идеальные композиции, которые
-              <br />
-              подчеркнут эмоции и улучшат настроение
+            <span className="gallery-copy block min-[769px]:hidden">
+              Эксклюзивные букеты для особых моментов. Идеальные композиции, которые подчеркнут эмоции и
+              улучшат настроение
             </span>
             <span className="hidden min-[769px]:block" style={{ textAlign: "justify", textAlignLast: "justify" }}>
               Эксклюзивные букеты для особых моментов.
