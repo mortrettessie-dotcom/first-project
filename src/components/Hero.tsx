@@ -11,7 +11,15 @@ const wordmark = '"Cormorant SC", serif'
 const script = "var(--font-script)"
 const sans = "var(--font-body)"
 
-function BouquetBadge({ reduce }: { reduce: boolean }) {
+function BouquetBadge({
+  reduce,
+  place = badgePlace,
+  ringId = "bouquet-ring",
+}: {
+  reduce: boolean
+  place?: { left: string; top: string; width: string }
+  ringId?: string
+}) {
   return (
     <>
       <img
@@ -19,19 +27,19 @@ function BouquetBadge({ reduce }: { reduce: boolean }) {
         alt=""
         draggable={false}
         className="pointer-events-none absolute z-0 block h-auto max-w-none -translate-x-1/2 -translate-y-1/2"
-        style={badgePlace}
+        style={place}
       />
       <motion.a
         href="#catalog"
         aria-label="Выбрать свой букет"
         className="absolute z-0 block"
-        style={{ ...badgePlace, x: "-50%", y: "-50%" }}
+        style={{ ...place, x: "-50%", y: "-50%" }}
         animate={reduce ? { rotate: 0 } : { rotate: 360 }}
         transition={reduce ? { duration: 0 } : { duration: 22, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 217 217" className="block h-auto w-full overflow-visible" aria-hidden="true">
           <defs>
-            <path id="bouquet-ring" d="M108.5,30.5a78,78 0 1,1 -0.01,0" />
+            <path id={ringId} d="M108.5,30.5a78,78 0 1,1 -0.01,0" />
           </defs>
           <text
             fill="#1a1a1a"
@@ -40,7 +48,7 @@ function BouquetBadge({ reduce }: { reduce: boolean }) {
             fontWeight="400"
             letterSpacing="0.01em"
           >
-            <textPath href="#bouquet-ring" textLength="490" lengthAdjust="spacing">
+            <textPath href={`#${ringId}`} textLength="490" lengthAdjust="spacing">
               Выбрать свой букет · Выбрать свой букет ·
             </textPath>
           </text>
@@ -54,9 +62,54 @@ export function Hero() {
   const reduce = useReducedMotion() ?? false
 
   return (
-    <section id="top" className="bg-white px-[50px]">
+    <section id="top" className="bg-white px-5 min-[769px]:px-[50px]">
+      <div className="min-[769px]:hidden pt-1 pb-3">
+        <div className="relative">
+          <p
+            className="relative z-[1] mb-[-0.34em] text-center text-[#3d392f]"
+            style={{
+              fontFamily: wordmark,
+              fontWeight: 400,
+              fontSize: "clamp(62px, 20vw, 156px)",
+              lineHeight: 0.78,
+              letterSpacing: 0,
+            }}
+          >
+            FLOWERS
+          </p>
+          <div className="relative z-[2]">
+            <div className="relative overflow-hidden" style={{ aspectRatio: "942 / 672" }}>
+              <img
+                src="/flowers/hero-bouquet.png?v=24"
+                alt=""
+                draggable={false}
+                className="pointer-events-none absolute max-w-none"
+                style={{ width: "164.65%", left: "-30.68%", top: "-18.75%" }}
+              />
+            </div>
+            <p
+              className="absolute top-[16%] -right-1 z-[3] text-[#3d392f]"
+              style={{
+                fontFamily: script,
+                fontSize: "clamp(42px, 12.4vw, 56px)",
+                lineHeight: 1,
+              }}
+            >
+              for you
+            </p>
+          </div>
+          <p
+            className="relative z-[3] mx-auto mt-3 max-w-[268px] text-center text-[17px] leading-5 text-[#3a342c]"
+            style={{ fontFamily: sans, fontWeight: 300, letterSpacing: 0 }}
+          >
+            Наши букеты — это не просто цветы, а уникальные композиции, созданные с любовью
+          </p>
+        </div>
+        <SocialLinks className="mt-16 justify-center" iconSize={34} gap={14} />
+      </div>
+
       <div
-        className="relative mx-auto w-full"
+        className="relative mx-auto hidden w-full min-[769px]:block"
         style={{ aspectRatio: "1551 / 982", containerType: "inline-size" }}
       >
         <p

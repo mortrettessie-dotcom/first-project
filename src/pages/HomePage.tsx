@@ -8,7 +8,7 @@ import { Hero } from "../components/Hero.tsx"
 
 export function HomePage() {
   return (
-    <div className="min-h-svh bg-paper text-ink">
+    <div className="min-h-svh max-[768px]:overflow-x-clip bg-paper text-ink">
       <Header />
       <main>
         <Hero />

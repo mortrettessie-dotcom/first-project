@@ -21,8 +21,87 @@ const wordmark = {
 
 export function Footer() {
   return (
+    <>
+    <footer className="relative overflow-hidden bg-white px-5 pt-12 pb-6 text-[#3a342c] min-[769px]:hidden">
+      <div className="text-[#3d392f]">
+        <p
+          style={{
+            fontFamily: wordmarkFont,
+            fontWeight: 400,
+            fontSize: "clamp(58px, 16.8vw, 72px)",
+            lineHeight: 0.8,
+            letterSpacing: "0.06em",
+          }}
+        >
+          FLOW
+          <span
+            className="relative top-[0.06em] ml-[0.04em] inline-block align-middle"
+            style={{
+              fontFamily: script,
+              fontWeight: 400,
+              fontSize: "0.62em",
+              letterSpacing: 0,
+              lineHeight: 1,
+            }}
+          >
+            with
+          </span>
+        </p>
+        <p
+          className="mt-1 text-right"
+          style={{
+            fontFamily: wordmarkFont,
+            fontWeight: 400,
+            fontSize: "clamp(58px, 16.8vw, 72px)",
+            lineHeight: 0.8,
+            letterSpacing: "0.06em",
+          }}
+        >
+          LOVE
+        </p>
+      </div>
+
+      <SocialLinks className="mt-12 justify-start" iconSize={36} gap={12} />
+
+      <div className="relative mt-10">
+        <div
+          className="relative z-[2] max-w-[230px] text-[15px] leading-6 text-[#4a453f]"
+          style={{ fontFamily: sans, letterSpacing: 0 }}
+        >
+          <p className="font-medium text-[#3a342c]">Контакты</p>
+          <p className="mt-4">Ежедневно с 9:00 до 23:00</p>
+          <p>г. Минск</p>
+          <p>
+            <a href="tel:+375297777879">+ 375 (29)-777-78-79</a>
+          </p>
+          <p>
+            <a href="mailto:flowlove@gmail.com">flowlove@gmail.com</a>
+          </p>
+          <p className="mt-10 font-medium text-[#3a342c]">Меню</p>
+          <ul className="mt-4">
+            {menu.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <img
+          src="/flowers/footer-lily-edge.png"
+          alt=""
+          className="pointer-events-none absolute -right-5 bottom-0 z-[1] w-[58%] max-w-none"
+        />
+      </div>
+
+      <div className="relative z-[2] mt-8 border-t border-[#e6e1da] pt-4">
+        <p className="text-[14px] text-[#8a847c]" style={{ fontFamily: sans }}>
+          Все права защищены
+        </p>
+      </div>
+    </footer>
+
     <footer
-      className="relative overflow-hidden bg-white text-[#3a342c]"
+      className="relative hidden overflow-hidden bg-white text-[#3a342c] min-[769px]:block"
       style={{ aspectRatio: "1798 / 1271", containerType: "inline-size" }}
     >
       <a
@@ -102,5 +181,6 @@ export function Footer() {
         </p>
       </div>
     </footer>
+    </>
   )
 }

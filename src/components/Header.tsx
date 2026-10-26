@@ -27,10 +27,10 @@ export function Header() {
 
   return (
     <header className="relative z-30 bg-white">
-      <div className="flex h-[72px] items-center justify-between px-[50px]">
+      <div className="grid h-16 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-5 min-[769px]:flex min-[769px]:h-[72px] min-[769px]:items-center min-[769px]:justify-between min-[769px]:gap-0 min-[769px]:px-[50px]">
         <button
           type="button"
-          className="grid h-10 w-10 place-items-center text-ink"
+          className="grid h-10 w-10 shrink-0 place-items-center text-ink"
           aria-expanded={open}
           aria-controls="site-menu"
           onClick={() => setOpen((value) => !value)}
@@ -41,16 +41,16 @@ export function Header() {
 
         <a
           href="#top"
-          className="absolute left-1/2 -translate-x-1/2 text-[30px] leading-none tracking-[0.06em] text-ink"
+          className="justify-self-center text-center text-[18px] leading-none tracking-[0.08em] whitespace-nowrap text-ink min-[769px]:absolute min-[769px]:left-1/2 min-[769px]:-translate-x-1/2 min-[769px]:text-[30px] min-[769px]:tracking-[0.06em]"
           style={{ fontFamily: '"Cormorant SC", serif', fontWeight: 500 }}
         >
           FLOWLOVE
         </a>
 
-        <div className="flex items-center gap-[28px] text-ink">
-          {headerIcons.map((icon) => (
-            <HeaderButton key={icon.label} label={icon.label}>
-              <img src={icon.src} alt="" className="h-5 w-5" />
+        <div className="flex shrink-0 items-center gap-3 text-ink min-[769px]:gap-[28px]">
+          {headerIcons.map((icon, index) => (
+            <HeaderButton key={icon.label} label={icon.label} className={index < 2 ? "max-[768px]:hidden" : ""}>
+              <img src={icon.src} alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
             </HeaderButton>
           ))}
         </div>
@@ -58,7 +58,7 @@ export function Header() {
 
       {open && (
         <nav id="site-menu" className="border-t border-line bg-white" aria-label="Разделы">
-          <ul className="flex flex-col px-[50px] py-4">
+          <ul className="flex flex-col px-5 py-4 min-[769px]:px-[50px]">
             {links.map((link) => (
               <li key={link.href}>
                 <a
@@ -77,9 +77,17 @@ export function Header() {
   )
 }
 
-function HeaderButton({ label, children }: { label: string; children: ReactNode }) {
+function HeaderButton({
+  label,
+  className = "",
+  children,
+}: {
+  label: string
+  className?: string
+  children: ReactNode
+}) {
   return (
-    <button type="button" aria-label={label} className="grid place-items-center">
+    <button type="button" aria-label={label} className={`grid place-items-center ${className}`}>
       {children}
     </button>
   )

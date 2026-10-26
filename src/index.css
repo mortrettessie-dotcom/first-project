@@ -82,6 +82,24 @@ body {
   letter-spacing: 0.045em;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --title-catalog: clamp(46px, 12.6vw, 56px);
+    --title-bestsellers: clamp(52px, 15vw, 66px);
+    --title-delivery: clamp(74px, 21vw, 100px);
+    --title-contacts: clamp(72px, 20vw, 92px);
+  }
+
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  #catalog figcaption {
+    margin-left: 0 !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
