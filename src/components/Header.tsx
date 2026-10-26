@@ -13,8 +13,21 @@ const links = [
   { href: "#catalog", label: "Галерея" },
 ]
 
+function isPhone() {
+  return window.matchMedia("(max-width: 768px), (max-device-width: 768px)").matches
+}
+
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [phone, setPhone] = useState(isPhone)
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 768px), (max-device-width: 768px)")
+    const update = () => setPhone(query.matches)
+    update()
+    query.addEventListener("change", update)
+    return () => query.removeEventListener("change", update)
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -48,13 +61,13 @@ export function Header() {
         </a>
 
         <div className="flex shrink-0 items-center gap-3 text-ink min-[769px]:gap-[28px]">
-          {headerIcons.map((icon, index) => (
-            <div key={icon.label} className={index < 2 ? "max-[768px]:hidden min-[769px]:contents" : "contents"}>
-              <HeaderButton label={icon.label}>
+          {headerIcons.map((icon, index) =>
+            phone && index < 2 ? null : (
+              <HeaderButton key={icon.label} label={icon.label} desktopOnly={index < 2}>
                 <img src={icon.src} alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
               </HeaderButton>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </div>
 
@@ -81,15 +94,20 @@ export function Header() {
 
 function HeaderButton({
   label,
-  className = "",
+  desktopOnly = false,
   children,
 }: {
   label: string
-  className?: string
+  desktopOnly?: boolean
   children: ReactNode
 }) {
   return (
-    <button type="button" aria-label={label} className={`grid place-items-center ${className}`}>
+    <button
+      type="button"
+      aria-label={label}
+      data-desktop-only={desktopOnly ? "" : undefined}
+      className="grid place-items-center"
+    >
       {children}
     </button>
   )

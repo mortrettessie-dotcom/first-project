@@ -90,8 +90,9 @@ export function Catalog() {
             style={{ fontFamily: sans }}
           >
             <span className="gallery-copy block min-[769px]:hidden">
-              Эксклюзивные букеты для особых моментов. Идеальные композиции, которые подчеркнут эмоции и
-              улучшат настроение
+              Эксклюзивные букеты для особых моментов. Идеальные композиции, которые подчеркнут эмоции
+              <br />
+              и улучшат настроение
             </span>
             <span className="hidden min-[769px]:block" style={{ textAlign: "justify", textAlignLast: "justify" }}>
               Эксклюзивные букеты для особых моментов.
