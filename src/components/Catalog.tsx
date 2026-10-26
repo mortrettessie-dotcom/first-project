@@ -23,6 +23,7 @@ function FlowerCard({
   inset = "0",
   plate = false,
   frame = false,
+  drop = false,
 }: {
   name: string
   image: string
@@ -30,16 +31,19 @@ function FlowerCard({
   inset?: string
   plate?: boolean
   frame?: boolean
+  drop?: boolean
 }) {
   return (
     <figure className={plate || frame ? "w-full" : width}>
       {plate ? (
         <div className="flex aspect-[168/173] w-full items-center justify-center overflow-hidden bg-[#f8f7f2]">
-          <img src={image} alt={name} className="max-h-full max-w-full object-contain" />
+          <img src={image} alt={name} className="h-full w-auto max-w-full object-contain" />
         </div>
       ) : frame ? (
-        <div className="aspect-[168/156] w-full overflow-hidden bg-[#f8f7f2]">
-          <img src={image} alt={name} className="h-full w-full object-cover object-center" />
+        <div
+          className={`flex aspect-[168/156] w-full overflow-hidden bg-[#f8f7f2] ${drop ? "items-end justify-start" : "items-center justify-center"}`}
+        >
+          <img src={image} alt={name} className="max-h-full max-w-full object-contain object-left-bottom" />
         </div>
       ) : (
         <img src={image} alt={name} className="block h-auto w-full" />
@@ -116,9 +120,9 @@ export function Catalog() {
         </div>
       </div>
 
-      <div className="mt-16 grid grid-cols-2 items-end gap-x-5 min-[769px]:hidden">
-        <FlowerCard {...categories[1]} image="/flowers/cards/kompozicii-plate.jpg" name={"Композиции\nв коробках"} frame />
-        <FlowerCard {...categories[2]} image="/flowers/cards/buket-nevesty-plate.jpg" frame />
+      <div className="mt-16 grid grid-cols-2 items-start gap-x-5 min-[769px]:hidden">
+        <FlowerCard {...categories[1]} image="/flowers/cards/kompozicii-plate.jpg" name={"Композиции\nв коробках"} inset="0" frame />
+        <FlowerCard {...categories[2]} image="/flowers/cards/buket-nevesty-plate.jpg" inset="0" frame drop />
       </div>
       <div className="mt-10 hidden min-[769px]:flex min-[769px]:items-end min-[769px]:justify-between">
         {categories.map((item) => (

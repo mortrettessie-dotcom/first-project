@@ -49,9 +49,11 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-3 text-ink min-[769px]:gap-[28px]">
           {headerIcons.map((icon, index) => (
-            <HeaderButton key={icon.label} label={icon.label} className={index < 2 ? "max-[768px]:hidden" : ""}>
-              <img src={icon.src} alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
-            </HeaderButton>
+            <div key={icon.label} className={index < 2 ? "max-[768px]:hidden min-[769px]:contents" : "contents"}>
+              <HeaderButton label={icon.label}>
+                <img src={icon.src} alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
+              </HeaderButton>
+            </div>
           ))}
         </div>
       </div>

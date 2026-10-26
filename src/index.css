@@ -84,7 +84,7 @@ body {
 
 @media (max-width: 768px) {
   :root {
-    --title-catalog: clamp(46px, 12.6vw, 56px);
+    --title-catalog: clamp(40px, 11.4vw, 48px);
     --title-bestsellers: clamp(52px, 15vw, 66px);
     --title-delivery: clamp(74px, 21vw, 100px);
     --title-contacts: clamp(72px, 20vw, 92px);
@@ -93,6 +93,10 @@ body {
   html,
   body {
     overflow-x: clip;
+  }
+
+  #catalog h2 {
+    white-space: nowrap !important;
   }
 
   #catalog figcaption {
