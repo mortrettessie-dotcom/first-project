@@ -3,7 +3,7 @@ import {
   type CatalogCategory,
   type CatalogProduct,
   type CatalogStatus,
-} from "../src/data/catalogProducts.ts"
+} from "../src/data/catalogProducts.js"
 
 type ProductRow = {
   id?: number | string

@@ -1,8 +1,8 @@
-import { findCatalogProduct, type CatalogProduct } from "../src/data/catalogProducts.ts"
-import { deliveryCost, deliveryMethods, paymentMethods } from "../src/lib/delivery.ts"
-import type { OrderLine, OrderView } from "../src/lib/orderView.ts"
-import { loadCatalog } from "./catalog.ts"
-import { notifyOrder } from "./notify.ts"
+import { findCatalogProduct, type CatalogProduct } from "../src/data/catalogProducts.js"
+import { deliveryCost, deliveryMethods, paymentMethods } from "../src/lib/delivery.js"
+import type { OrderLine, OrderView } from "../src/lib/orderView.js"
+import { loadCatalog } from "./catalog.js"
+import { notifyOrder } from "./notify.js"
 
 export class OrderError extends Error {
   status: number

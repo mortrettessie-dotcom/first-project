@@ -1,5 +1,5 @@
-import { OrderError, createOrder, loadOrder } from "../server/orders.ts"
-import { originOf } from "../server/pageMeta.ts"
+import { OrderError, createOrder, loadOrder } from "../server/orders.js"
+import { originOf } from "../server/pageMeta.js"
 
 type HeaderValue = string | string[] | undefined
 

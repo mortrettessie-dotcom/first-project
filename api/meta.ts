@@ -1,5 +1,5 @@
-import { loadMetaRows } from "../server/pageMeta.ts"
-import { fallbackMeta } from "../src/lib/pageMeta.ts"
+import { loadMetaRows } from "../server/pageMeta.js"
+import { fallbackMeta } from "../src/lib/pageMeta.js"
 
 type Request = { method?: string }
 type Response = {

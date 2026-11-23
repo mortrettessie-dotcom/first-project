@@ -1,4 +1,4 @@
-import { defaultSiteContent, type SiteContent, type SiteProduct } from "../src/data/siteContent.ts"
+import { defaultSiteContent, type SiteContent, type SiteProduct } from "../src/data/siteContent.js"
 
 const productsGid = "0"
 const heroGid = "1373391784"

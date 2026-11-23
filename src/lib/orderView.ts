@@ -1,4 +1,4 @@
-import { formatOrderDate } from "./orderDate.ts"
+import { formatOrderDate } from "./orderDate.js"
 
 export type OrderLine = {
   id: string

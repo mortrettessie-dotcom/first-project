@@ -1,5 +1,5 @@
-import { loadCatalog } from "../server/catalog.ts"
-import { catalogProducts } from "../src/data/catalogProducts.ts"
+import { loadCatalog } from "../server/catalog.js"
+import { catalogProducts } from "../src/data/catalogProducts.js"
 
 type Request = { method?: string }
 type Response = {

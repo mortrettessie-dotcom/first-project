@@ -1,5 +1,5 @@
-import { orderLink, orderMessage, type OrderView } from "../src/lib/orderView.ts"
-import { postTelegram, sendPlainMail } from "./mail.ts"
+import { orderLink, orderMessage, type OrderView } from "../src/lib/orderView.js"
+import { postTelegram, sendPlainMail } from "./mail.js"
 
 export async function notifyOrder(order: OrderView, origin: string) {
   const text = orderMessage(order)

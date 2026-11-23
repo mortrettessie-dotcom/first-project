@@ -1,4 +1,4 @@
-import { ApplicationError, parseApplication, sendApplication } from "../server/mail.ts"
+import { ApplicationError, parseApplication, sendApplication } from "../server/mail.js"
 
 type Request = { method?: string; body?: unknown }
 type Response = {

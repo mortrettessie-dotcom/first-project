@@ -1,6 +1,6 @@
-import { findCatalogProduct } from "../src/data/catalogProducts.ts"
-import { absoluteUrl, fallbackMeta, fillProductMeta, metaRowFor, orderPageMeta, type PageMeta } from "../src/lib/pageMeta.ts"
-import { loadCatalog } from "./catalog.ts"
+import { findCatalogProduct } from "../src/data/catalogProducts.js"
+import { absoluteUrl, fallbackMeta, fillProductMeta, metaRowFor, orderPageMeta, type PageMeta } from "../src/lib/pageMeta.js"
+import { loadCatalog } from "./catalog.js"
 
 const sheetId = "14Qdx9dYpw252BbKlq4icuSNjvkAXs6-VEr9kpSeaju0"
 const metaGid = "1910050856"

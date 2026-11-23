@@ -1,5 +1,5 @@
-import { loadSiteContent } from "../server/sheets.ts"
-import { defaultSiteContent } from "../src/data/siteContent.ts"
+import { loadSiteContent } from "../server/sheets.js"
+import { defaultSiteContent } from "../src/data/siteContent.js"
 
 type Request = { method?: string }
 type Response = {
