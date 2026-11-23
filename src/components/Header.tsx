@@ -1,4 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react"
+import { Link } from "react-router-dom"
+import { useCart } from "../lib/cart.tsx"
 import { CloseIcon, MenuIcon } from "./icons.tsx"
 
 const headerIcons = [
@@ -9,8 +11,8 @@ const headerIcons = [
 ]
 
 const links = [
-  { href: "#top", label: "Главная" },
-  { href: "#catalog", label: "Галерея" },
+  { href: "/#top", label: "Главная" },
+  { href: "/#catalog", label: "Галерея" },
 ]
 
 function isPhone() {
@@ -53,7 +55,7 @@ export function Header() {
         </button>
 
         <a
-          href="#top"
+          href="/#top"
           className="justify-self-center text-center text-[18px] leading-none tracking-[0.08em] whitespace-nowrap text-ink min-[769px]:absolute min-[769px]:left-1/2 min-[769px]:-translate-x-1/2 min-[769px]:text-[30px] min-[769px]:tracking-[0.06em]"
           style={{ fontFamily: '"Cormorant SC", serif', fontWeight: 500 }}
         >
@@ -62,7 +64,9 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-3 text-ink min-[769px]:gap-[28px]">
           {headerIcons.map((icon, index) =>
-            phone && index < 2 ? null : (
+            phone && index < 2 ? null : icon.label === "Корзина" ? (
+              <CartLink key={icon.label} />
+            ) : (
               <HeaderButton key={icon.label} label={icon.label} desktopOnly={index < 2}>
                 <img src={icon.src} alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
               </HeaderButton>
@@ -89,6 +93,23 @@ export function Header() {
         </nav>
       )}
     </header>
+  )
+}
+
+function CartLink() {
+  const { count } = useCart()
+  return (
+    <Link to="/cart" aria-label={count > 0 ? `Корзина, ${count}` : "Корзина"} className="relative grid place-items-center">
+      <img src="/flowers/icon-cart.png" alt="" className="h-[18px] w-[18px] min-[769px]:h-5 min-[769px]:w-5" />
+      {count > 0 ? (
+        <span
+          className="absolute -top-2 -right-2 grid h-4 min-w-4 place-items-center rounded-full bg-[#3a342c] px-1 text-[10px] leading-none text-white"
+          style={{ fontFamily: "var(--font-body)", fontWeight: 400 }}
+        >
+          {count}
+        </span>
+      ) : null}
+    </Link>
   )
 }
 

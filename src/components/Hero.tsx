@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "motion/react"
+import { defaultSiteContent } from "../data/siteContent.ts"
 import { SocialLinks } from "./SocialLinks.tsx"
 
 const badgePlace = {
@@ -58,16 +59,23 @@ function BouquetBadge({
   )
 }
 
-export function Hero() {
+export function Hero({
+  title = defaultSiteContent.hero.title,
+  text = defaultSiteContent.hero.text,
+}: {
+  title?: string
+  text?: string
+}) {
   const reduce = useReducedMotion() ?? false
 
   return (
     <section id="top" className="bg-white px-5 min-[769px]:px-[50px]">
       <div className="min-[769px]:hidden pt-1 pb-3">
         <div className="relative">
-          <p
+          <h1
             className="relative z-[1] mb-[-0.34em] text-center text-[#3d392f]"
             style={{
+              margin: 0,
               fontFamily: wordmark,
               fontWeight: 400,
               fontSize: "clamp(62px, 20vw, 156px)",
@@ -75,8 +83,8 @@ export function Hero() {
               letterSpacing: 0,
             }}
           >
-            FLOWERS
-          </p>
+            {title}
+          </h1>
           <div className="relative z-[2]">
             <div className="relative overflow-hidden" style={{ aspectRatio: "942 / 672" }}>
               <img
@@ -102,7 +110,7 @@ export function Hero() {
             className="relative z-[3] mx-auto mt-3 max-w-[268px] text-center text-[17px] leading-5 text-[#3a342c]"
             style={{ fontFamily: sans, fontWeight: 300, letterSpacing: 0 }}
           >
-            Наши букеты — это не просто цветы, а уникальные композиции, созданные с любовью
+            {text}
           </p>
         </div>
         <SocialLinks className="mt-16 justify-center" iconSize={34} gap={14} />
@@ -112,9 +120,10 @@ export function Hero() {
         className="relative mx-auto hidden w-full min-[769px]:block"
         style={{ aspectRatio: "1551 / 982", containerType: "inline-size" }}
       >
-        <p
+        <h1
           className="absolute text-[#3d392f]"
           style={{
+            margin: 0,
             left: "2.6%",
             top: "1.6%",
             fontFamily: wordmark,
@@ -124,8 +133,8 @@ export function Hero() {
             letterSpacing: "0.09em",
           }}
         >
-          FLOWERS
-        </p>
+          {title}
+        </h1>
         <BouquetBadge reduce={reduce} />
         <img
           src="/flowers/hero-bouquet.png?v=24"
@@ -158,7 +167,7 @@ export function Hero() {
             letterSpacing: 0,
           }}
         >
-          Наши букеты — это не просто цветы, а уникальные композиции, созданные с любовью
+          {text}
         </p>
         <SocialLinks
           className="absolute z-[3]"

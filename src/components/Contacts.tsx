@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react"
+import { sendApplication } from "../lib/applications.ts"
 
 const sans = "var(--font-body)"
 const display = "var(--font-heading)"
@@ -7,11 +8,25 @@ const field =
   "w-full border-0 border-b border-[#e4e0da] bg-transparent py-3 text-[16px] text-[#3a342c] outline-none placeholder:text-[#8a847c]"
 
 export function Contacts() {
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<"form" | "sending" | "success" | "error">("form")
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSent(true)
+    const data = new FormData(event.currentTarget)
+    setStatus("sending")
+    try {
+      await sendApplication({
+        source: "Главная — Контакты",
+        name: String(data.get("name") ?? ""),
+        surname: String(data.get("surname") ?? ""),
+        phone: String(data.get("phone") ?? ""),
+        email: String(data.get("email") ?? ""),
+        message: String(data.get("message") ?? ""),
+      })
+      setStatus("success")
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
@@ -47,10 +62,20 @@ export function Contacts() {
 
         <div className="min-[769px]:border-l min-[769px]:border-[#eceae6] min-[769px]:pl-12">
           <div className="min-[769px]:pt-52">
-            {sent ? (
-            <p className="text-[22px] leading-8" style={{ fontFamily: sans }}>
-              Спасибо. Мы ответим вам в ближайшее время.
-            </p>
+            {status === "success" ? (
+            <FormNotice
+              tone="success"
+              title="Спасибо за ваш ответ!"
+              text="В ближайшее время Вам отправят ответ на указанную почту"
+              onClose={() => setStatus("form")}
+            />
+          ) : status === "error" ? (
+            <FormNotice
+              tone="error"
+              title="К сожалению, что-то пошло не так :("
+              text="Проверьте указанную Вами почту"
+              onClose={() => setStatus("form")}
+            />
           ) : (
             <>
               <h3
@@ -92,6 +117,19 @@ export function Contacts() {
                   className={`${field} mt-6`}
                   style={{ fontFamily: sans }}
                 />
+                <label className="sr-only" htmlFor="contact-phone">
+                  Номер телефона
+                </label>
+                <input
+                  id="contact-phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autoComplete="tel"
+                  placeholder="Номер телефона*"
+                  className={`${field} mt-6`}
+                  style={{ fontFamily: sans }}
+                />
                 <label className="sr-only" htmlFor="contact-email">
                   Электронная почта
                 </label>
@@ -105,12 +143,25 @@ export function Contacts() {
                   className={`${field} mt-6`}
                   style={{ fontFamily: sans }}
                 />
+                <label className="sr-only" htmlFor="contact-message">
+                  Сообщение
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={3}
+                  autoComplete="off"
+                  placeholder="Сообщение"
+                  className={`${field} mt-6 resize-none`}
+                  style={{ fontFamily: sans }}
+                />
                 <button
                   type="submit"
-                  className="mt-10 w-full cursor-pointer bg-[#e6e2d8] py-4 text-[16px] text-[#3a342c]"
+                  disabled={status === "sending"}
+                  className="mt-10 w-full cursor-pointer bg-[#e6e2d8] py-4 text-[16px] text-[#3a342c] disabled:cursor-wait"
                   style={{ fontFamily: sans, fontWeight: 500 }}
                 >
-                  Отправить
+                  {status === "sending" ? "Отправка..." : "Отправить"}
                 </button>
               </form>
             </>
@@ -119,5 +170,57 @@ export function Contacts() {
         </div>
       </div>
     </section>
+  )
+}
+
+function FormNotice({
+  tone,
+  title,
+  text,
+  onClose,
+}: {
+  tone: "success" | "error"
+  title: string
+  text: string
+  onClose: () => void
+}) {
+  return (
+    <div>
+      <h3 className="text-[22px] leading-7 font-medium" style={{ fontFamily: sans, letterSpacing: 0 }}>
+        {title}
+      </h3>
+      <p className="mt-4 max-w-[520px] text-[15px] leading-6 text-[#5c564e]" style={{ fontFamily: sans }}>
+        {text}
+      </p>
+      <div className="mt-10 flex justify-center" aria-hidden="true">
+        {tone === "success" ? <SuccessMark /> : <ErrorMark />}
+      </div>
+      <button
+        type="button"
+        onClick={onClose}
+        className="mt-10 w-full cursor-pointer bg-[#e6e2d8] py-4 text-[16px] text-[#3a342c]"
+        style={{ fontFamily: sans, fontWeight: 500 }}
+      >
+        Закрыть
+      </button>
+    </div>
+  )
+}
+
+function SuccessMark() {
+  return (
+    <svg viewBox="0 0 88 88" className="h-28 w-28 text-[#21a84a]">
+      <circle cx="44" cy="44" r="34" fill="none" stroke="currentColor" strokeWidth="2.4" />
+      <path d="M28 46.5 38.5 57 60 33" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ErrorMark() {
+  return (
+    <svg viewBox="0 0 88 88" className="h-28 w-28 text-[#e1262d]">
+      <circle cx="44" cy="44" r="34" fill="none" stroke="currentColor" strokeWidth="2.4" />
+      <path d="M33 33 55 55M55 33 33 55" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    </svg>
   )
 }

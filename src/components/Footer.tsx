@@ -5,10 +5,10 @@ const wordmarkFont = '"Cormorant SC", serif'
 const script = "var(--font-script)"
 
 const menu = [
-  { label: "Каталог", href: "#catalog" },
-  { label: "Оплата и доставка", href: "#delivery" },
-  { label: "Отзывы", href: "#bestsellers" },
-  { label: "Контакты", href: "#contacts" },
+  { label: "Каталог", href: "/catalog" },
+  { label: "Оплата и доставка", href: "/#delivery" },
+  { label: "Отзывы", href: "/#bestsellers" },
+  { label: "Контакты", href: "/#contacts" },
 ]
 
 const wordmark = {
@@ -105,7 +105,7 @@ export function Footer() {
       style={{ aspectRatio: "1798 / 1271", containerType: "inline-size" }}
     >
       <a
-        href="#top"
+        href="/#top"
         aria-label="Наверх"
         className="absolute z-10 grid place-items-center rounded-full border border-[#3a342c]"
         style={{ top: "4.7%", right: "3.5%", width: "3.06cqw", height: "3.06cqw", fontSize: "1.15cqw" }}

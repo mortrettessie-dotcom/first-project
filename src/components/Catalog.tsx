@@ -1,19 +1,21 @@
+import { defaultSiteContent, productName, type SiteContent } from "../data/siteContent.ts"
+
 const sans = "var(--font-body)"
 const display = "var(--font-heading)"
 
 const species = [
-  { name: "Пион", image: "/flowers/cards/pion.jpg", width: "w-full min-[769px]:w-[15%]" },
-  { name: "Калла", image: "/flowers/cards/kalla.jpg", width: "w-full min-[769px]:w-[18%]" },
-  { name: "Ранункулюс", image: "/flowers/cards/ranunkulyus.jpg", width: "w-full min-[769px]:w-[14%]" },
-  { name: "Тюльпан", image: "/flowers/cards/tyulpan.jpg", width: "w-full min-[769px]:w-[14%]" },
-  { name: "Мак", image: "/flowers/cards/mak.jpg", width: "w-full min-[769px]:w-[16%]" },
+  { id: "pion", name: "Пион", image: "/flowers/cards/pion.jpg", width: "w-full min-[769px]:w-[15%]" },
+  { id: "kalla", name: "Калла", image: "/flowers/cards/kalla.jpg", width: "w-full min-[769px]:w-[18%]" },
+  { id: "ranunkulyus", name: "Ранункулюс", image: "/flowers/cards/ranunkulyus.jpg", width: "w-full min-[769px]:w-[14%]" },
+  { id: "tyulpan", name: "Тюльпан", image: "/flowers/cards/tyulpan.jpg", width: "w-full min-[769px]:w-[14%]" },
+  { id: "mak", name: "Мак", image: "/flowers/cards/mak.jpg", width: "w-full min-[769px]:w-[16%]" },
 ]
 
 const categories = [
-  { name: "Монобукеты", image: "/flowers/cards/monobukety.jpg", width: "w-full min-[769px]:w-[16.9%]", inset: "0" },
-  { name: "Композиции в коробках", image: "/flowers/cards/kompozicii.jpg?v=2", width: "w-full min-[769px]:w-[20.8%]", inset: "10%" },
-  { name: "Букет невесты", image: "/flowers/cards/buket-nevesty.jpg?v=2", width: "w-full min-[769px]:w-[19.6%]", inset: "7%" },
-  { name: "Авторские букеты", image: "/flowers/cards/avtorskie.jpg?v=2", width: "w-full min-[769px]:w-[31.5%]", inset: "2%" },
+  { id: "monobukety", name: "Монобукеты", image: "/flowers/cards/monobukety.jpg", width: "w-full min-[769px]:w-[16.9%]", inset: "0" },
+  { id: "kompozicii", name: "Композиции в коробках", image: "/flowers/cards/kompozicii.jpg?v=2", width: "w-full min-[769px]:w-[20.8%]", inset: "10%" },
+  { id: "buket-nevesty", name: "Букет невесты", image: "/flowers/cards/buket-nevesty.jpg?v=2", width: "w-full min-[769px]:w-[19.6%]", inset: "7%" },
+  { id: "avtorskie", name: "Авторские букеты", image: "/flowers/cards/avtorskie.jpg?v=2", width: "w-full min-[769px]:w-[31.5%]", inset: "2%" },
 ]
 
 function FlowerCard({
@@ -58,16 +60,21 @@ function FlowerCard({
   )
 }
 
-export function Catalog() {
+export function Catalog({ content = defaultSiteContent }: { content?: SiteContent }) {
+  const namedSpecies = species.map((item) => ({ ...item, name: productName(content, item.id, item.name) }))
+  const namedCategories = categories.map((item) => ({ ...item, name: productName(content, item.id, item.name) }))
+  const compositions = namedCategories[1]
+  const compositionsName = compositions.name === "Композиции в коробках" ? "Композиции\nв коробках" : compositions.name
+
   return (
     <section id="catalog" className="scroll-mt-4 bg-white px-4 pt-6 pb-8 min-[769px]:px-[50px] min-[769px]:pt-0">
       <div className="grid grid-cols-2 items-end gap-x-5 pb-10 min-[769px]:hidden">
-        <FlowerCard {...species[2]} image="/flowers/cards/ranunkulyus-plate.jpg" plate />
-        <FlowerCard {...species[1]} image="/flowers/cards/kalla-plate.jpg" plate />
+        <FlowerCard {...namedSpecies[2]} image="/flowers/cards/ranunkulyus-plate.jpg" plate />
+        <FlowerCard {...namedSpecies[1]} image="/flowers/cards/kalla-plate.jpg" plate />
       </div>
       <div className="hidden min-[769px]:flex min-[769px]:items-start min-[769px]:justify-between">
-        {species.map((item) => (
-          <FlowerCard key={item.name} {...item} />
+        {namedSpecies.map((item) => (
+          <FlowerCard key={item.id} {...item} />
         ))}
       </div>
 
@@ -103,7 +110,7 @@ export function Catalog() {
             </span>
           </p>
           <a
-            href="#catalog"
+            href="/catalog"
             className="mt-8 flex w-full items-center justify-between rounded-[6px] border border-[#e7c5cb] px-6 py-3.5 text-[15px] text-[#3a342c] min-[769px]:rounded-full min-[769px]:py-2.5"
             style={{ fontFamily: sans, fontWeight: 400, letterSpacing: 0 }}
           >
@@ -116,12 +123,12 @@ export function Catalog() {
       </div>
 
       <div className="mt-16 grid grid-cols-2 items-start gap-x-5 min-[769px]:hidden">
-        <FlowerCard {...categories[1]} image="/flowers/cards/kompozicii-plate.jpg" name={"Композиции\nв коробках"} inset="0" frame />
-        <FlowerCard {...categories[2]} image="/flowers/cards/buket-nevesty-plate.jpg" inset="0" frame drop />
+        <FlowerCard {...compositions} image="/flowers/cards/kompozicii-plate.jpg" name={compositionsName} inset="0" frame />
+        <FlowerCard {...namedCategories[2]} image="/flowers/cards/buket-nevesty-plate.jpg" inset="0" frame drop />
       </div>
       <div className="mt-10 hidden min-[769px]:flex min-[769px]:items-end min-[769px]:justify-between">
-        {categories.map((item) => (
-          <FlowerCard key={item.name} {...item} />
+        {namedCategories.map((item) => (
+          <FlowerCard key={item.id} {...item} />
         ))}
       </div>
     </section>

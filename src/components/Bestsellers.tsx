@@ -1,44 +1,53 @@
+import { defaultSiteContent, productName, productPrice, type SiteContent } from "../data/siteContent.ts"
+
 const sans = "var(--font-body)"
 const display = "var(--font-heading)"
 
 const cards = [
   {
+    id: "belosnezhka",
     name: "Белоснежка",
     price: "190 byn",
     image: "/flowers/cards/belosnezhka.jpg",
     className: "col-span-6",
   },
   {
+    id: "nezhnye-rozy",
     name: "Нежные розы",
     price: "110 byn",
     image: "/flowers/cards/nezhnye-rozy.jpg",
     className: "",
   },
   {
+    id: "radost-vesny",
     name: "Радость весны",
     price: "250 byn",
     image: "/flowers/cards/radost-vesny.jpg",
     className: "",
   },
   {
+    id: "volshebny-sad",
     name: "Волшебный сад",
     price: "150 byn",
     image: "/flowers/cards/volshebny-sad.jpg",
     className: "col-span-3",
   },
   {
+    id: "set-lyubvi",
     name: "Сет любви",
     price: "210 byn",
     image: "/flowers/cards/set-lyubvi.jpg",
     className: "col-span-6 col-start-7",
   },
   {
+    id: "mechta",
     name: "Мечта",
     price: "130 byn",
     image: "/flowers/cards/mechta.jpg",
     className: "col-span-3 col-start-7",
   },
   {
+    id: "letniy-sad",
     name: "Летний сад",
     price: "220 byn",
     image: "/flowers/cards/letniy-sad.jpg",
@@ -107,7 +116,13 @@ function Card({
   )
 }
 
-export function Bestsellers() {
+export function Bestsellers({ content = defaultSiteContent }: { content?: SiteContent }) {
+  const items = cards.map((card) => ({
+    ...card,
+    name: productName(content, card.id, card.name),
+    price: productPrice(content, card.id, card.price),
+  }))
+
   return (
     <section id="bestsellers" className="scroll-mt-4 bg-white px-4 pb-14 min-[769px]:px-[50px] min-[769px]:pb-16">
       <h2
@@ -142,31 +157,31 @@ export function Bestsellers() {
       </p>
 
       <div className="mt-6 grid grid-cols-2 items-end gap-x-5 gap-y-8 min-[769px]:hidden">
-        <Card stacked {...cards[1]} className="" />
-        <Card stacked {...cards[2]} className="" />
-        <Card stacked wide {...cards[0]} className="col-span-2" />
-        <Card stacked {...cards[3]} className="" />
-        <Card stacked {...cards[6]} className="" />
-        <Card stacked wide {...cards[4]} className="col-span-2" />
+        <Card stacked {...items[1]} className="" />
+        <Card stacked {...items[2]} className="" />
+        <Card stacked wide {...items[0]} className="col-span-2" />
+        <Card stacked {...items[3]} className="" />
+        <Card stacked {...items[6]} className="" />
+        <Card stacked wide {...items[4]} className="col-span-2" />
       </div>
 
       <div className="mt-10 hidden space-y-12 min-[769px]:block">
         <div className="grid grid-cols-12 items-stretch gap-x-7">
-          <Card {...cards[0]} />
+          <Card {...items[0]} />
           <div className="col-span-6 flex flex-col">
             <div className="grid grid-cols-2 gap-x-7">
-              <Card {...cards[1]} />
+              <Card {...items[1]} />
             </div>
             <div className="mt-auto grid grid-cols-2 gap-x-7 pt-6">
               <div />
-              <Card {...cards[2]} />
+              <Card {...items[2]} />
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-12 items-start gap-x-7">
-          <Card {...cards[3]} />
-          <Card {...cards[4]} />
+          <Card {...items[3]} />
+          <Card {...items[4]} />
         </div>
 
         <div className="grid grid-cols-12 items-end gap-x-7">
@@ -178,8 +193,8 @@ export function Bestsellers() {
             <br />
             и важного события
           </p>
-          <Card {...cards[5]} />
-          <Card {...cards[6]} />
+          <Card {...items[5]} />
+          <Card {...items[6]} />
         </div>
       </div>
     </section>
