@@ -5,12 +5,11 @@ import type { IncomingMessage, ServerResponse } from "node:http"
 import { join } from "node:path"
 import { defineConfig, loadEnv, type Plugin } from "vite"
 import { ApplicationError, parseApplication, sendApplication } from "./server/mail.ts"
-import { loadCatalog } from "./server/catalog.ts"
+import { fallbackCatalog, loadCatalog } from "./server/catalog.ts"
 import { OrderError, createOrder, loadOrder } from "./server/orders.ts"
 import { metaForRequest, loadMetaRows, originOf } from "./server/pageMeta.ts"
 import { applyHtmlMeta, fallbackMeta } from "./src/lib/pageMeta.ts"
 import { loadSiteContent } from "./server/sheets.ts"
-import { catalogProducts } from "./src/data/catalogProducts.ts"
 import { defaultSiteContent } from "./src/data/siteContent.ts"
 
 function readBody(req: IncomingMessage, limit = 10_000) {
@@ -78,7 +77,7 @@ function catalogApi(): Plugin {
           .then((catalog) => sendJson(res, 200, catalog))
           .catch((error: unknown) => {
             console.error(error)
-            sendJson(res, 200, { products: catalogProducts, categories: [] })
+            sendJson(res, 200, fallbackCatalog())
           })
       })
     },

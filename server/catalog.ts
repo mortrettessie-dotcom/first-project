@@ -1,4 +1,5 @@
 import {
+  catalogCategories,
   catalogProducts,
   type CatalogCategory,
   type CatalogProduct,
@@ -21,6 +22,31 @@ type CategoryRow = {
 }
 
 const images = new Map(catalogProducts.map((product) => [product.name.toLowerCase(), product.image]))
+
+const fallbackRows: ProductRow[] = [
+  { id: 1, name: "Грация", price: 165, category_id: 2 },
+  { id: 2, name: "Изящество", price: 120, category_id: 2 },
+  { id: 3, name: "Нежность", price: 170, category_id: 2 },
+  { id: 4, name: "Фаворит", price: 190, category_id: 2 },
+  { id: 5, name: "Классика жанра", price: 290, category_id: 2 },
+  { id: 6, name: "Гармония", price: 180, category_id: 2 },
+  { id: 7, name: "Зефир", price: 100, category_id: 2 },
+  { id: 8, name: "Пудровая роза", price: 190, category_id: 2 },
+  { id: 9, name: "Белоснежка", price: 200, category_id: 2 },
+  { id: 10, name: "Грация", price: 140, status: "хит", category_id: 1 },
+  { id: 11, name: "Изящество", price: 90, "old price": 120, status: "скидка", category_id: 1 },
+  { id: 12, name: "Нежность", price: 170, status: "нет в наличии", category_id: 3 },
+  { id: 13, name: "Фаворит", price: 190, category_id: 3 },
+  { id: 14, name: "Классика жанра", price: 240, "old price": 290, status: "скидка", category_id: 4 },
+  { id: 15, name: "Гармония", price: 180, status: "нет в наличии", category_id: 4 },
+  { id: 16, name: "Зефир", price: 80, "old price": 100, status: "скидка", category_id: 5 },
+  { id: 17, name: "Пудровая роза", price: 190, category_id: 5 },
+  { id: 18, name: "Белоснежка", price: 200, status: "хит", category_id: 5 },
+]
+
+export function fallbackCatalog() {
+  return { products: catalogFromRows(fallbackRows), categories: catalogCategories }
+}
 
 function statusOf(value: unknown): CatalogStatus | undefined {
   if (typeof value !== "string") return undefined
@@ -63,7 +89,7 @@ export function catalogFromRows(rows: ProductRow[]): CatalogProduct[] {
 export async function loadCatalog(): Promise<{ products: CatalogProduct[]; categories: CatalogCategory[] }> {
   const url = process.env.SUPABASE_URL?.replace(/\/$/, "")
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !key) return { products: catalogProducts, categories: [] }
+  if (!url || !key) return fallbackCatalog()
 
   const headers = { apikey: key, Authorization: `Bearer ${key}` }
   try {
@@ -73,7 +99,7 @@ export async function loadCatalog(): Promise<{ products: CatalogProduct[]; categ
     ])
     if (!productResponse.ok) {
       console.error("Supabase products:", productResponse.status, (await productResponse.text()).slice(0, 300))
-      return { products: catalogProducts, categories: [] }
+      return fallbackCatalog()
     }
     const rows = (await productResponse.json()) as ProductRow[]
     const categoryRows = categoryResponse.ok ? ((await categoryResponse.json()) as CategoryRow[]) : []
@@ -88,6 +114,6 @@ export async function loadCatalog(): Promise<{ products: CatalogProduct[]; categ
     return { products: catalogFromRows(rows), categories }
   } catch (error) {
     console.error(error)
-    return { products: catalogProducts, categories: [] }
+    return fallbackCatalog()
   }
 }

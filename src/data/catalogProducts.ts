@@ -19,6 +19,14 @@ export type CatalogProduct = {
 
 export const catalogPageSize = 9
 
+export const catalogCategories: CatalogCategory[] = [
+  { id: "1", name: "Поштучно" },
+  { id: "2", name: "Авторские букеты" },
+  { id: "3", name: "В коробках" },
+  { id: "4", name: "Монобукеты" },
+  { id: "5", name: "По поводу" },
+]
+
 export const catalogProducts: CatalogProduct[] = [
   { id: "gracia", name: "Грация", price: "140 byn", image: "/flowers/catalog/gracia.jpg?v=3" },
   { id: "izyaschestvo", name: "Изящество", price: "120 byn", image: "/flowers/catalog/izyaschestvo.jpg?v=5" },

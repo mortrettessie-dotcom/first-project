@@ -1,5 +1,4 @@
-import { loadCatalog } from "../server/catalog.js"
-import { catalogProducts } from "../src/data/catalogProducts.js"
+import { fallbackCatalog, loadCatalog } from "../server/catalog.js"
 
 type Request = { method?: string }
 type Response = {
@@ -18,6 +17,6 @@ export default async function handler(req: Request, res: Response) {
     res.status(200).json(await loadCatalog())
   } catch (error) {
     console.error(error)
-    res.status(200).json({ products: catalogProducts, categories: [] })
+    res.status(200).json(fallbackCatalog())
   }
 }

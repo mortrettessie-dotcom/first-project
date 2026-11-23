@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Footer } from "../components/Footer.tsx"
 import { Header } from "../components/Header.tsx"
 import {
+  catalogCategories,
   catalogProducts,
   pieceProducts,
   toCatalogPages,
@@ -645,9 +646,9 @@ function CatalogGrid({
 export function CatalogPage() {
   const reduce = useReducedMotion() ?? false
   const [pages, setPages] = useState(1)
-  const [products, setProducts] = useState(catalogProducts)
-  const [categories, setCategories] = useState<CatalogCategory[]>([])
-  const [selected, setSelected] = useState<string | null>(null)
+  const [products, setProducts] = useState<CatalogProduct[]>(() => catalogProducts.map((product) => ({ ...product, categoryId: "2" })))
+  const [categories, setCategories] = useState<CatalogCategory[]>(catalogCategories)
+  const [selected, setSelected] = useState<string | null>("2")
   const [sort, setSort] = useState<PriceSort>("catalog")
   const [openMenu, setOpenMenu] = useState<null | "sort" | "occasion">(null)
   const [occasionChoice, setOccasionChoice] = useState<string | null>(null)
@@ -658,9 +659,12 @@ export function CatalogPage() {
       .then((response) => response.json())
       .then((data: { products?: CatalogProduct[]; categories?: CatalogCategory[] }) => {
         if (cancel || !Array.isArray(data.products) || data.products.length === 0) return
-        const nextCategories = Array.isArray(data.categories) ? data.categories : []
+        const nextCategories = Array.isArray(data.categories) && data.categories.length ? data.categories : catalogCategories
         const author = nextCategories.find((category) => category.name === "Авторские букеты")
-        setProducts(data.products)
+        const nextProducts = data.products.some((product) => product.categoryId)
+          ? data.products
+          : data.products.map((product) => ({ ...product, categoryId: "2" }))
+        setProducts(nextProducts)
         setCategories(nextCategories)
         setSelected(author?.id ?? nextCategories[0]?.id ?? null)
         setPages(1)
